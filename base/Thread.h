@@ -5,10 +5,10 @@
 #include <string>
 
 #include "CountDownLatch.h"
-
+// 封装thread
 namespace nut
 {
-class Thread :  
+class Thread
 {
     public:
         typedef std::function<void()> ThreadFunc;

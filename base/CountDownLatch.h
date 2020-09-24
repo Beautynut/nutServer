@@ -8,19 +8,19 @@ namespace nut
 {
 class CountDownLatch
 {
-    public:
+  public:
 
-        explicit CountDownLatch(int count);
-        ~CountDownLatch();
+    explicit CountDownLatch(int count);
+    ~CountDownLatch();
 
-        void wait();
-        void countDown();
-        int getCount() const;
+    void wait();
+    void countDown();
+    int getCount() const;
 
- private:
-  mutable MutexLock mutex_;
-  Condition condition_;
-  int count_;
+  private:
+    mutable MutexLock mutex_;
+    Condition condition_;
+    int count_;
 };
 
 }
