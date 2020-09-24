@@ -18,22 +18,22 @@ class MutexLock
         ~MutexLock()
         { pthread_mutex_destroy(&mutex); }
 
-        int lock()
+        void lock()
         { 
             pthread_mutex_lock(&mutex);
             //pid_ = currentThread::tid();
         }
 
-        int unlock()
+        void unlock()
         {
             //pid_ = 0;
             pthread_mutex_unlock(&mutex);
         }
 
-        bool isLockedByThisThread()
-        {
-            //return pid_ == currentThread::tid();
-        }
+        // bool isLockedByThisThread()
+        // {
+        //     return pid_ == currentThread::tid();
+        // }
 
         pthread_mutex_t* getMutex()
         {

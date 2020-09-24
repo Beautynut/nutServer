@@ -9,15 +9,27 @@ __thread char t_errnobuf[512];
 __thread char t_time[64];
 __thread time_t t_lastSecond;
 
+static pthread_once_t once_control_ = PTHREAD_ONCE_INIT;
+std::string Logger::logFileName_ = "./NutServer.log";
+static AsyncLogging* asyncLogging_;
+
 const char* strerror_tl(int savedErrno)
 {
-  return strerror_r(savedErrno, t_errnobuf, sizeof t_errnobuf);
+  return strerror_r(savedErrno, t_errnobuf, sizeof(t_errnobuf));
+}
+
+void once_init()
+{
+    asyncLogging_ = new AsyncLogging(Logger::getLogFileName());
+    asyncLogging_->start(); 
 }
 
 void output(const char* msg, int len)
 {
-
+    pthread_once(&once_control_, once_init);
+    asyncLogging_->append(msg, len);
 }
+
 
 Logger::Impl::Impl(const char *fileName, int line)
   : stream_(),

@@ -24,18 +24,18 @@ class StringArg
   const char* str_;
 };
 
-// 对LogFile再进行一次封装
 class AppendFile
 {
     public:
         AppendFile(StringArg filename);
         ~AppendFile();
 
-        int append(const char* message,size_t len);
+        void append(const char* message,size_t len);
         void flush();
     private:
         size_t write(const char* message,size_t len);
         FILE* fp_;
+        char buffer_[64 * 1024];
 };
 
 }

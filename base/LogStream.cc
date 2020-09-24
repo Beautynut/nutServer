@@ -1,4 +1,5 @@
 #include "LogStream.h"
+#include <algorithm>
 
 using namespace nut;
 

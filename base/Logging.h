@@ -2,6 +2,7 @@
 #define SERVER_LOGGING_H
 
 #include "LogStream.h"
+#include "AsyncLogging.h"
 
 namespace nut
 {
@@ -17,6 +18,7 @@ class Logger
         //设置log路径,暂时不需要
         //static void setLogFileName(std::string fileName) { logFileName_ = fileName; }
         static std::string getLogFileName() { return logFileName_; }
+        //static AsyncLogging* asyncLogging_;
 
     private:
         class Impl 
@@ -33,7 +35,7 @@ class Logger
         static std::string logFileName_;
 };
 
-#define LOG Logger(__FILE__, __LINE__).stream()
 }
+#define LOG nut::Logger(__FILE__, __LINE__).stream()
 
 #endif

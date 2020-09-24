@@ -3,6 +3,7 @@
 
 #include <pthread.h>
 #include <unistd.h>
+#include <stdint.h>
 #include <sys/syscall.h>
 
 namespace currentThread
@@ -15,7 +16,7 @@ namespace currentThread
         {
             if(t_cachedTid == 0)
             {
-                t_cachedTid = ::syscall(SYS_gettid);
+                t_cachedTid = static_cast<pid_t>(::syscall(SYS_gettid));
             }
         }
         return t_cachedTid;

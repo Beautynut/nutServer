@@ -3,6 +3,8 @@
 
 using namespace nut;
 
+__thread int currentThread::t_cachedTid = 0;
+
 Thread::Thread(const ThreadFunc& func)
     : started_(false),
       joined_(false),
@@ -13,7 +15,8 @@ Thread::Thread(const ThreadFunc& func)
 {
 }
 
-struct ThreadData {
+struct ThreadData 
+{
   typedef Thread::ThreadFunc ThreadFunc;
   ThreadFunc func_;
   pid_t* tid_;
@@ -23,13 +26,14 @@ struct ThreadData {
              CountDownLatch* latch)
       : func_(func), tid_(tid), latch_(latch) {}
 
-  void runInThread() {
+  void runInThread() 
+  {
     *tid_ = currentThread::tid();
     tid_ = NULL;
     latch_->countDown();
     latch_ = NULL;
 
-
+    system("echo \"runInthread\" >> a.log");
     func_();
   }
 };
@@ -42,18 +46,23 @@ void* startThread(void* obj)
   return NULL;
 }
 
-Thread::~Thread() {
+Thread::~Thread() 
+{
   if (started_ && !joined_) pthread_detach(pthreadId_);
 }
 
-void Thread::start() {
+void Thread::start() 
+{
   assert(!started_);
   started_ = true;
   ThreadData* data = new ThreadData(func_, &tid_, &latch_);
-  if (pthread_create(&pthreadId_, NULL, &startThread, data)) {
+  if (pthread_create(&pthreadId_, NULL, &startThread, data)) 
+  {
     started_ = false;
     delete data;
-  } else {
+  } 
+  else 
+  {
     latch_.wait();
     assert(tid_ > 0);
   }

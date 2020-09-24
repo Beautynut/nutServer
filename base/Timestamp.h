@@ -15,7 +15,7 @@ class Timestamp
 
         Timestamp now();
 
-        std::string Timestamp::toString() const;
+        std::string toString() const;
 
         int64_t microSecondsSinceEpoch(){ return microSecondsSinceEpoch_; }
 
@@ -33,6 +33,7 @@ class Timestamp
         int64_t microSecondsSinceEpoch_;
 };
 
+//在timestamp的时间上增加 seconds
 inline Timestamp addTime(Timestamp timestamp, double seconds)
 {
   int64_t delta = static_cast<int64_t>(seconds * Timestamp::kMicroSecondsPerSeconds);

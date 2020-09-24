@@ -1,19 +1,9 @@
+#include "base/Logging.h"
 #include <iostream>
-#include <stdio.h>
-#include <string>
-
-using namespace std;
-
-string func()
-{
-    char str[32] = {0};
-    snprintf(str,sizeof(str),"hello world\n");
-    return str;
-}
-
 int main()
-{
-    string a = func();
-    std::cout<<a;
+{   
+    std::cout<<"hello world"<<std::endl;
+    LOG << "hello worldddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd";
+    //system("echo \"hello\"");
     return 0;
 }

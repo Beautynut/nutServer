@@ -9,6 +9,10 @@ CountDownLatch::CountDownLatch(int count)
 {
 }
 
+CountDownLatch::~CountDownLatch()
+{
+}
+
 void CountDownLatch::wait()
 {
     MutexLockGuard lock(mutex_);
