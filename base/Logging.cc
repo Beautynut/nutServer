@@ -58,7 +58,7 @@ Logger::Logger(const char *fileName, int line)
 
 Logger::~Logger()
 {
-  impl_.stream_ << " -- " << impl_.basename_ << ':' << impl_.line_ << '\n';
+  impl_.stream_ << " -- " << impl_.basename_ << ':' << impl_.line_ << ' ';
   const LogStream::Buffer& buf(stream().buffer());
   output(buf.data(), buf.length());
 }

@@ -33,4 +33,9 @@
 
 # Otheres
 core
+*.log
+*.cmake
+CMakeFiles
 .vscode
+CMakeCache.txt
+Makefile

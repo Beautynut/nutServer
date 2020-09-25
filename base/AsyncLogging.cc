@@ -24,7 +24,6 @@ AsyncLogging::AsyncLogging(const std::string& filename)
 // 将message 加入缓存,然后唤醒日志线程
 void AsyncLogging::append(const char* message,int len)
 {
-    system("echo \"append\" >> a.log");
     MutexLockGuard lock(mutex_);
     if (currentBuffer_->avail() > len)
     {
@@ -52,13 +51,12 @@ void AsyncLogging::threadFunc()
   assert(running_ == true);
   latch_.countDown();
   Logfile output(filename_);
-  uBufferPtr newBuffer1(new Buffer);
-  uBufferPtr newBuffer2(new Buffer);
+  uBufferPtr newBuffer1(new Buffer());
+  uBufferPtr newBuffer2(new Buffer());
   newBuffer1->bzero();
   newBuffer2->bzero();
   uBufferPtrVector buffersToWrite;
   buffersToWrite.reserve(16);
-  system("echo \"hello4\" >> a.log");
   while(running_)
   {
     assert(newBuffer1 && newBuffer1->length() == 0);
@@ -71,10 +69,10 @@ void AsyncLogging::threadFunc()
     //   {
     //     cond_.waitForSeconds(flushInterval_);
     //   }
-        if(buffers_.empty())
-        {
-            cond_.wait();
-        }
+         while(buffers_.empty())
+         {
+             cond_.wait();
+         }
         
         buffers_.push_back(std::move(currentBuffer_));
         currentBuffer_ = std::move(newBuffer1);
@@ -129,6 +127,5 @@ void AsyncLogging::threadFunc()
     buffersToWrite.clear();
     output.flush();
   }
-  system("echo \"hello5\" >> a.log");
   output.flush();
 }

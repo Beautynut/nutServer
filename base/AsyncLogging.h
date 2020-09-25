@@ -44,7 +44,7 @@ class AsyncLogging
 
 
         // Buffer
-        typedef FixedBuffer<LargeBuffer> Buffer;
+        typedef FixedBuffer<SmallBuffer> Buffer;
         typedef std::vector<std::unique_ptr<Buffer>> uBufferPtrVector;
         typedef uBufferPtrVector::value_type uBufferPtr;
 
