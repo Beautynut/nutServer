@@ -13,7 +13,7 @@ class Timestamp
         explicit Timestamp(int64_t microSecondsSinceEpochArg);
         ~Timestamp();
 
-        Timestamp now();
+        static Timestamp now();
 
         std::string toString() const;
 
@@ -22,11 +22,16 @@ class Timestamp
         time_t secondsSinceEpoch() const
         { return static_cast<time_t>(microSecondsSinceEpoch_ / kMicroSecondsPerSeconds); }
 
-        bool operator==(Timestamp& rhs)
-        { return this->microSecondsSinceEpoch_ == rhs.microSecondsSinceEpoch(); }
+        // bool operator==( Timestamp& rhs)
+        // { return microSecondsSinceEpoch_ == rhs.microSecondsSinceEpoch(); }
 
-        bool operator<(Timestamp& rhs)
-        { return this->microSecondsSinceEpoch_ < rhs.microSecondsSinceEpoch(); }
+        // bool operator<(Timestamp& rhs)
+        // { return microSecondsSinceEpoch_ < rhs.microSecondsSinceEpoch(); }
+
+        bool valid() const { return microSecondsSinceEpoch_ > 0; }
+
+        static Timestamp invalid()
+        {  return Timestamp(); }
         
         static const int kMicroSecondsPerSeconds = 1000 * 1000;
     private:
@@ -38,6 +43,16 @@ inline Timestamp addTime(Timestamp timestamp, double seconds)
 {
   int64_t delta = static_cast<int64_t>(seconds * Timestamp::kMicroSecondsPerSeconds);
   return Timestamp(timestamp.microSecondsSinceEpoch() + delta);
+}
+
+inline bool operator<(Timestamp lhs, Timestamp rhs)
+{
+  return lhs.microSecondsSinceEpoch() < rhs.microSecondsSinceEpoch();
+}
+
+inline bool operator==(Timestamp lhs, Timestamp rhs)
+{
+  return lhs.microSecondsSinceEpoch() == rhs.microSecondsSinceEpoch();
 }
 
 }

@@ -3,12 +3,15 @@
 
 using namespace nut;
 Timestamp::Timestamp()
-        :microSecondsSinceEpoch_(0)
+    :microSecondsSinceEpoch_(0)
 {
 }
 
 Timestamp::Timestamp(int64_t microSecondsSinceEpochArg)
-        :microSecondsSinceEpoch_(microSecondsSinceEpochArg)
+    :microSecondsSinceEpoch_(microSecondsSinceEpochArg)
+{
+}
+Timestamp::~Timestamp()
 {
 }
 
@@ -22,9 +25,9 @@ Timestamp Timestamp::now()
 
 std::string Timestamp::toString() const
 {
-  char buf[32] = {0};
-  int64_t seconds = microSecondsSinceEpoch_ / kMicroSecondsPerSeconds;
-  int64_t microseconds = microSecondsSinceEpoch_ % kMicroSecondsPerSeconds;
-  snprintf(buf, sizeof(buf), "%" PRId64 ".%06" PRId64 "", seconds, microseconds);
-  return buf;
+    char buf[32] = {0};
+    int64_t seconds = microSecondsSinceEpoch_ / kMicroSecondsPerSeconds;
+    int64_t microseconds = microSecondsSinceEpoch_ % kMicroSecondsPerSeconds;
+    snprintf(buf, sizeof(buf), "%" PRId64 ".%06" PRId64 "", seconds, microseconds);
+    return buf;
 }

@@ -34,10 +34,10 @@ aux_source_directory(. DIR_SRCS)
 
 # 添加 math 子目录
 add_subdirectory(base)
+add_subdirectory(net)
 
 # 指定生成目标 
 add_executable(test1 test1.cc)
 
 # 添加链接库
-target_link_libraries(test1 base)
-target_link_libraries(test1 pthread)
+target_link_libraries(test1 net)

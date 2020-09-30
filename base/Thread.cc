@@ -33,7 +33,6 @@ struct ThreadData
     latch_->countDown();
     latch_ = NULL;
 
-    system("echo \"runInthread\" >> a.log");
     func_();
   }
 };

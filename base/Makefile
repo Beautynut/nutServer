@@ -111,19 +111,19 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-base/CMakeFiles/base.dir/rule:
-	cd /home/lhy/nutServer && $(MAKE) -f CMakeFiles/Makefile2 base/CMakeFiles/base.dir/rule
-.PHONY : base/CMakeFiles/base.dir/rule
+base/CMakeFiles/libbase.dir/rule:
+	cd /home/lhy/nutServer && $(MAKE) -f CMakeFiles/Makefile2 base/CMakeFiles/libbase.dir/rule
+.PHONY : base/CMakeFiles/libbase.dir/rule
 
 # Convenience name for target.
-base: base/CMakeFiles/base.dir/rule
+libbase: base/CMakeFiles/libbase.dir/rule
 
-.PHONY : base
+.PHONY : libbase
 
 # fast build rule for target.
-base/fast:
-	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/base.dir/build.make base/CMakeFiles/base.dir/build
-.PHONY : base/fast
+libbase/fast:
+	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/libbase.dir/build.make base/CMakeFiles/libbase.dir/build
+.PHONY : libbase/fast
 
 AsyncLogging.o: AsyncLogging.cc.o
 
@@ -131,7 +131,7 @@ AsyncLogging.o: AsyncLogging.cc.o
 
 # target to build an object file
 AsyncLogging.cc.o:
-	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/base.dir/build.make base/CMakeFiles/base.dir/AsyncLogging.cc.o
+	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/libbase.dir/build.make base/CMakeFiles/libbase.dir/AsyncLogging.cc.o
 .PHONY : AsyncLogging.cc.o
 
 AsyncLogging.i: AsyncLogging.cc.i
@@ -140,7 +140,7 @@ AsyncLogging.i: AsyncLogging.cc.i
 
 # target to preprocess a source file
 AsyncLogging.cc.i:
-	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/base.dir/build.make base/CMakeFiles/base.dir/AsyncLogging.cc.i
+	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/libbase.dir/build.make base/CMakeFiles/libbase.dir/AsyncLogging.cc.i
 .PHONY : AsyncLogging.cc.i
 
 AsyncLogging.s: AsyncLogging.cc.s
@@ -149,7 +149,7 @@ AsyncLogging.s: AsyncLogging.cc.s
 
 # target to generate assembly for a file
 AsyncLogging.cc.s:
-	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/base.dir/build.make base/CMakeFiles/base.dir/AsyncLogging.cc.s
+	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/libbase.dir/build.make base/CMakeFiles/libbase.dir/AsyncLogging.cc.s
 .PHONY : AsyncLogging.cc.s
 
 CountDownLatch.o: CountDownLatch.cc.o
@@ -158,7 +158,7 @@ CountDownLatch.o: CountDownLatch.cc.o
 
 # target to build an object file
 CountDownLatch.cc.o:
-	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/base.dir/build.make base/CMakeFiles/base.dir/CountDownLatch.cc.o
+	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/libbase.dir/build.make base/CMakeFiles/libbase.dir/CountDownLatch.cc.o
 .PHONY : CountDownLatch.cc.o
 
 CountDownLatch.i: CountDownLatch.cc.i
@@ -167,7 +167,7 @@ CountDownLatch.i: CountDownLatch.cc.i
 
 # target to preprocess a source file
 CountDownLatch.cc.i:
-	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/base.dir/build.make base/CMakeFiles/base.dir/CountDownLatch.cc.i
+	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/libbase.dir/build.make base/CMakeFiles/libbase.dir/CountDownLatch.cc.i
 .PHONY : CountDownLatch.cc.i
 
 CountDownLatch.s: CountDownLatch.cc.s
@@ -176,7 +176,7 @@ CountDownLatch.s: CountDownLatch.cc.s
 
 # target to generate assembly for a file
 CountDownLatch.cc.s:
-	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/base.dir/build.make base/CMakeFiles/base.dir/CountDownLatch.cc.s
+	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/libbase.dir/build.make base/CMakeFiles/libbase.dir/CountDownLatch.cc.s
 .PHONY : CountDownLatch.cc.s
 
 Fileutil.o: Fileutil.cc.o
@@ -185,7 +185,7 @@ Fileutil.o: Fileutil.cc.o
 
 # target to build an object file
 Fileutil.cc.o:
-	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/base.dir/build.make base/CMakeFiles/base.dir/Fileutil.cc.o
+	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/libbase.dir/build.make base/CMakeFiles/libbase.dir/Fileutil.cc.o
 .PHONY : Fileutil.cc.o
 
 Fileutil.i: Fileutil.cc.i
@@ -194,7 +194,7 @@ Fileutil.i: Fileutil.cc.i
 
 # target to preprocess a source file
 Fileutil.cc.i:
-	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/base.dir/build.make base/CMakeFiles/base.dir/Fileutil.cc.i
+	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/libbase.dir/build.make base/CMakeFiles/libbase.dir/Fileutil.cc.i
 .PHONY : Fileutil.cc.i
 
 Fileutil.s: Fileutil.cc.s
@@ -203,7 +203,7 @@ Fileutil.s: Fileutil.cc.s
 
 # target to generate assembly for a file
 Fileutil.cc.s:
-	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/base.dir/build.make base/CMakeFiles/base.dir/Fileutil.cc.s
+	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/libbase.dir/build.make base/CMakeFiles/libbase.dir/Fileutil.cc.s
 .PHONY : Fileutil.cc.s
 
 LogFile.o: LogFile.cc.o
@@ -212,7 +212,7 @@ LogFile.o: LogFile.cc.o
 
 # target to build an object file
 LogFile.cc.o:
-	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/base.dir/build.make base/CMakeFiles/base.dir/LogFile.cc.o
+	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/libbase.dir/build.make base/CMakeFiles/libbase.dir/LogFile.cc.o
 .PHONY : LogFile.cc.o
 
 LogFile.i: LogFile.cc.i
@@ -221,7 +221,7 @@ LogFile.i: LogFile.cc.i
 
 # target to preprocess a source file
 LogFile.cc.i:
-	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/base.dir/build.make base/CMakeFiles/base.dir/LogFile.cc.i
+	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/libbase.dir/build.make base/CMakeFiles/libbase.dir/LogFile.cc.i
 .PHONY : LogFile.cc.i
 
 LogFile.s: LogFile.cc.s
@@ -230,7 +230,7 @@ LogFile.s: LogFile.cc.s
 
 # target to generate assembly for a file
 LogFile.cc.s:
-	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/base.dir/build.make base/CMakeFiles/base.dir/LogFile.cc.s
+	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/libbase.dir/build.make base/CMakeFiles/libbase.dir/LogFile.cc.s
 .PHONY : LogFile.cc.s
 
 LogStream.o: LogStream.cc.o
@@ -239,7 +239,7 @@ LogStream.o: LogStream.cc.o
 
 # target to build an object file
 LogStream.cc.o:
-	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/base.dir/build.make base/CMakeFiles/base.dir/LogStream.cc.o
+	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/libbase.dir/build.make base/CMakeFiles/libbase.dir/LogStream.cc.o
 .PHONY : LogStream.cc.o
 
 LogStream.i: LogStream.cc.i
@@ -248,7 +248,7 @@ LogStream.i: LogStream.cc.i
 
 # target to preprocess a source file
 LogStream.cc.i:
-	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/base.dir/build.make base/CMakeFiles/base.dir/LogStream.cc.i
+	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/libbase.dir/build.make base/CMakeFiles/libbase.dir/LogStream.cc.i
 .PHONY : LogStream.cc.i
 
 LogStream.s: LogStream.cc.s
@@ -257,7 +257,7 @@ LogStream.s: LogStream.cc.s
 
 # target to generate assembly for a file
 LogStream.cc.s:
-	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/base.dir/build.make base/CMakeFiles/base.dir/LogStream.cc.s
+	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/libbase.dir/build.make base/CMakeFiles/libbase.dir/LogStream.cc.s
 .PHONY : LogStream.cc.s
 
 Logging.o: Logging.cc.o
@@ -266,7 +266,7 @@ Logging.o: Logging.cc.o
 
 # target to build an object file
 Logging.cc.o:
-	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/base.dir/build.make base/CMakeFiles/base.dir/Logging.cc.o
+	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/libbase.dir/build.make base/CMakeFiles/libbase.dir/Logging.cc.o
 .PHONY : Logging.cc.o
 
 Logging.i: Logging.cc.i
@@ -275,7 +275,7 @@ Logging.i: Logging.cc.i
 
 # target to preprocess a source file
 Logging.cc.i:
-	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/base.dir/build.make base/CMakeFiles/base.dir/Logging.cc.i
+	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/libbase.dir/build.make base/CMakeFiles/libbase.dir/Logging.cc.i
 .PHONY : Logging.cc.i
 
 Logging.s: Logging.cc.s
@@ -284,7 +284,7 @@ Logging.s: Logging.cc.s
 
 # target to generate assembly for a file
 Logging.cc.s:
-	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/base.dir/build.make base/CMakeFiles/base.dir/Logging.cc.s
+	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/libbase.dir/build.make base/CMakeFiles/libbase.dir/Logging.cc.s
 .PHONY : Logging.cc.s
 
 Thread.o: Thread.cc.o
@@ -293,7 +293,7 @@ Thread.o: Thread.cc.o
 
 # target to build an object file
 Thread.cc.o:
-	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/base.dir/build.make base/CMakeFiles/base.dir/Thread.cc.o
+	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/libbase.dir/build.make base/CMakeFiles/libbase.dir/Thread.cc.o
 .PHONY : Thread.cc.o
 
 Thread.i: Thread.cc.i
@@ -302,7 +302,7 @@ Thread.i: Thread.cc.i
 
 # target to preprocess a source file
 Thread.cc.i:
-	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/base.dir/build.make base/CMakeFiles/base.dir/Thread.cc.i
+	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/libbase.dir/build.make base/CMakeFiles/libbase.dir/Thread.cc.i
 .PHONY : Thread.cc.i
 
 Thread.s: Thread.cc.s
@@ -311,7 +311,7 @@ Thread.s: Thread.cc.s
 
 # target to generate assembly for a file
 Thread.cc.s:
-	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/base.dir/build.make base/CMakeFiles/base.dir/Thread.cc.s
+	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/libbase.dir/build.make base/CMakeFiles/libbase.dir/Thread.cc.s
 .PHONY : Thread.cc.s
 
 Timestamp.o: Timestamp.cc.o
@@ -320,7 +320,7 @@ Timestamp.o: Timestamp.cc.o
 
 # target to build an object file
 Timestamp.cc.o:
-	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/base.dir/build.make base/CMakeFiles/base.dir/Timestamp.cc.o
+	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/libbase.dir/build.make base/CMakeFiles/libbase.dir/Timestamp.cc.o
 .PHONY : Timestamp.cc.o
 
 Timestamp.i: Timestamp.cc.i
@@ -329,7 +329,7 @@ Timestamp.i: Timestamp.cc.i
 
 # target to preprocess a source file
 Timestamp.cc.i:
-	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/base.dir/build.make base/CMakeFiles/base.dir/Timestamp.cc.i
+	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/libbase.dir/build.make base/CMakeFiles/libbase.dir/Timestamp.cc.i
 .PHONY : Timestamp.cc.i
 
 Timestamp.s: Timestamp.cc.s
@@ -338,7 +338,7 @@ Timestamp.s: Timestamp.cc.s
 
 # target to generate assembly for a file
 Timestamp.cc.s:
-	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/base.dir/build.make base/CMakeFiles/base.dir/Timestamp.cc.s
+	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/libbase.dir/build.make base/CMakeFiles/libbase.dir/Timestamp.cc.s
 .PHONY : Timestamp.cc.s
 
 # Help Target
@@ -348,7 +348,7 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... rebuild_cache"
-	@echo "... base"
+	@echo "... libbase"
 	@echo "... edit_cache"
 	@echo "... AsyncLogging.o"
 	@echo "... AsyncLogging.i"
