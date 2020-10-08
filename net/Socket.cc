@@ -1,21 +1,10 @@
 #include "Socket.h"
 #include <boost/bind.hpp>
-#include <boost/implicit_cast.hpp>
 #include "EventLoop.h"
+#include "../base/util.h"
 
 using namespace nut;
 
-typedef struct sockaddr SA;
-
-const SA* sockaddr_cast(const struct sockaddr_in* addr)
-{
-    return static_cast<const SA*>(boost::implicit_cast<const void*>(addr));
-}
-
-SA* sockaddr_cast(struct sockaddr_in* addr)
-{
-    return static_cast<SA*>(boost::implicit_cast<void*>(addr));
-}
 Socket::Socket()
 {
     sockFd_ =::socket(AF_INET,
@@ -70,6 +59,20 @@ int Socket::accept(inetAddr* peeraddr)
   }
   
   return connfd;
+}
+
+std::string inetAddr::getAddrString() const
+{
+    char buf[32];
+    nut::toHostPort(buf, sizeof buf, inetAddr_);
+    return buf;
+}
+
+std::string inetAddr::toHostPort() const
+{
+  char buf[32];
+  nut::toHostPort(buf, sizeof buf, inetAddr_);
+  return buf;
 }
 
 void Socket::setReuseAddr(bool on)

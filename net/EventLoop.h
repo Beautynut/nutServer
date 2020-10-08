@@ -28,6 +28,7 @@ class EventLoop
 
         void assertInLoopThread();
         void updateChannel(Channel* channel);
+        void removeChannel(Channel* channel);
         void runInLoop(const Function& func);
         void queueInLoop(const Function& func);
         void wakeUp();

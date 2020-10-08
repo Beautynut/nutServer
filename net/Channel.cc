@@ -32,7 +32,7 @@ void Channel::update()
   loop_->updateChannel(this);
 }
 
-void Channel::handler()
+void Channel::handler(Timestamp recvTime)
 {
   eventHandling_ = true;
   if (revents_ & POLLNVAL) {
@@ -47,7 +47,7 @@ void Channel::handler()
     if (errorCallback_) errorCallback_();
   }
   if (revents_ & (POLLIN | POLLPRI | POLLRDHUP)) {
-    if (readCallback_) readCallback_();
+    if (readCallback_) readCallback_(recvTime);
   }
   if (revents_ & POLLOUT) {
     if (writeCallback_) writeCallback_();

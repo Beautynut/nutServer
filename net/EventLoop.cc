@@ -65,11 +65,11 @@ void EventLoop::loop()
     while(!quit_)
     {
       activeChannels_.clear();
-      poller_->poll(10000,&activeChannels_);
+      Timestamp recvTime = poller_->poll(10000,&activeChannels_);
       for(ChannelList::iterator it = activeChannels_.begin();
         it != activeChannels_.end();++it)
       {
-          (*it)->handler();
+          (*it)->handler(recvTime);
       }
       doPendingFunctors();
     }
@@ -82,6 +82,13 @@ void EventLoop::updateChannel(Channel* channel)
 {
     assertInLoopThread();
     poller_->updateChannel(channel);
+}
+
+void EventLoop::removeChannel(Channel* channel)
+{
+    assert(channel->ownerLoop() == this);
+    assertInLoopThread();
+    poller_->removeChannel(channel);
 }
 
 void EventLoop::quit()

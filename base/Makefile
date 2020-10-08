@@ -341,6 +341,33 @@ Timestamp.cc.s:
 	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/libbase.dir/build.make base/CMakeFiles/libbase.dir/Timestamp.cc.s
 .PHONY : Timestamp.cc.s
 
+util.o: util.cc.o
+
+.PHONY : util.o
+
+# target to build an object file
+util.cc.o:
+	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/libbase.dir/build.make base/CMakeFiles/libbase.dir/util.cc.o
+.PHONY : util.cc.o
+
+util.i: util.cc.i
+
+.PHONY : util.i
+
+# target to preprocess a source file
+util.cc.i:
+	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/libbase.dir/build.make base/CMakeFiles/libbase.dir/util.cc.i
+.PHONY : util.cc.i
+
+util.s: util.cc.s
+
+.PHONY : util.s
+
+# target to generate assembly for a file
+util.cc.s:
+	cd /home/lhy/nutServer && $(MAKE) -f base/CMakeFiles/libbase.dir/build.make base/CMakeFiles/libbase.dir/util.cc.s
+.PHONY : util.cc.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -374,6 +401,9 @@ help:
 	@echo "... Timestamp.o"
 	@echo "... Timestamp.i"
 	@echo "... Timestamp.s"
+	@echo "... util.o"
+	@echo "... util.i"
+	@echo "... util.s"
 .PHONY : help
 
 

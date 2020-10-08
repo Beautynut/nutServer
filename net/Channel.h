@@ -18,8 +18,8 @@ class Channel
         Channel(EventLoop* loop,int fd);
         ~Channel();
 
-        void handler();
-        void setReadCallback(const Callback& cb){ readCallback_ = cb; }
+        void handler(Timestamp recvTime);
+        void setReadCallback(const ReadCallback& cb){ readCallback_ = cb; }
         void setWriteCallback(const Callback& cb){ writeCallback_ = cb; }
         void setErrorCallback(const Callback& cb){ errorCallback_ = cb; }
         void setCloseCallback(const Callback& cb){ closeCallback_ = cb; }
@@ -37,6 +37,8 @@ class Channel
         void set_index(int idx) { index_ = idx; }
         bool isNothingHappened() const { return events_ == noneEvent_; }
 
+        EventLoop* ownerLoop(){ return loop_; }
+
     private:
         void update();
 
@@ -47,11 +49,13 @@ class Channel
         EventLoop* loop_;
         const int fd_;
         
+        // events_是epoller需要关注的事件,epoller会用channel.events()构建 pollfd
+        // revents_则是接收到的事件
         int events_;
         int revents_;
         int index_;
 
-        Callback readCallback_;
+        ReadCallback readCallback_;
         Callback writeCallback_;
         Callback errorCallback_;
         Callback closeCallback_;

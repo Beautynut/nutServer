@@ -12,6 +12,7 @@
 namespace nut
 {
 class EventLoop;
+// 封装了sockaddr_in
 class inetAddr
 {
     public:
@@ -22,18 +23,27 @@ class inetAddr
             inetAddr_.sin_addr.s_addr = htonl(INADDR_ANY);
             inetAddr_.sin_port = htons(static_cast<unsigned short>(port));
         }
+        inetAddr(const struct sockaddr_in& InetAddr)
+            :inetAddr_(InetAddr)
+        {}
         ~inetAddr()
         {}
         void setSockAddrInet(const struct sockaddr_in& addr) { inetAddr_ = addr; }
         const struct sockaddr_in& getInetAddr() const { return inetAddr_; }
+        std::string getAddrString() const;
+        std::string toHostPort() const;
     private:
         struct sockaddr_in inetAddr_;
 };
 
+// 封装了socket
 class Socket
 {
     public:
         Socket();
+        explicit Socket(int fd)
+            :sockFd_(fd)
+        {}
         ~Socket();
 
         int fd(){ return sockFd_; }
@@ -45,6 +55,7 @@ class Socket
         int sockFd_;
 };
 
+// accpetor监听绑定好的端口,接受新连接,新连接到来时调用newConnectionCb_回调函数
 class Acceptor
 {
     public:

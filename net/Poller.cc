@@ -95,6 +95,9 @@ void Poller::removeChannel(Channel* channel)
   assert(pfd.fd == -channel->fd()-1 && pfd.events == channel->events());
   size_t n = channels_.erase(channel->fd());
   assert(n == 1); (void)n;
+  // 这里从pollfds_中删除的时间复杂度是O(1)
+  // 如果要删除的是最后一个元素 则直接删除
+  // 如果不是,则将要删除的元素跟最后一个交换,然后删除
   if (boost::implicit_cast<size_t>(idx) == pollfds_.size()-1) {
     pollfds_.pop_back();
   } else {
