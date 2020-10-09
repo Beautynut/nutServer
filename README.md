@@ -22,3 +22,4 @@ HTTP之前的部分(也就是从EventLoop到TcpServer),很大部分代码都是�
 > 2.支持http
 > 3.支持定时器关闭超时连接
 > 4.支持POST GET
+> 5.支持日志级别设置

@@ -2,7 +2,7 @@
 #include <sys/eventfd.h>
 #include <assert.h>
 #include <poll.h>
-#include "Poller.h"
+#include "Epoller.h"
 #include "Channel.h"
 #include "EventLoop.h"
 
@@ -24,7 +24,7 @@ EventLoop::EventLoop()
     : looping_(false),
     quit_(false),
     threadId_(currentThread::tid()),
-    poller_(new Poller(this)),
+    epoller_(new Epoller(this)),
     timerQueue_(new TimerQueue(this)),
     wakeupFd_(createEventfd()),
     wakeupChannel_(new Channel(this, wakeupFd_))
@@ -65,7 +65,7 @@ void EventLoop::loop()
     while(!quit_)
     {
       activeChannels_.clear();
-      Timestamp recvTime = poller_->poll(10000,&activeChannels_);
+      Timestamp recvTime = epoller_->poll(10000,&activeChannels_);
       for(ChannelList::iterator it = activeChannels_.begin();
         it != activeChannels_.end();++it)
       {
@@ -81,14 +81,14 @@ void EventLoop::loop()
 void EventLoop::updateChannel(Channel* channel)
 {
     assertInLoopThread();
-    poller_->updateChannel(channel);
+    epoller_->updateChannel(channel);
 }
 
 void EventLoop::removeChannel(Channel* channel)
 {
     assert(channel->ownerLoop() == this);
     assertInLoopThread();
-    poller_->removeChannel(channel);
+    epoller_->removeChannel(channel);
 }
 
 void EventLoop::quit()

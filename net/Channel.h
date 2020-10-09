@@ -35,7 +35,7 @@ class Channel
         int events() const { return events_; }
         void setRevents(int revt) { revents_ = revt; }
         void set_index(int idx) { index_ = idx; }
-        bool isNothingHappened() const { return events_ == noneEvent_; }
+        bool isNothingFocus() const { return events_ == noneEvent_; }
 
         EventLoop* ownerLoop(){ return loop_; }
 

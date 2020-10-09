@@ -76,7 +76,7 @@ void Poller::updateChannel(Channel* channel)
     assert(pfd.fd == channel->fd() || pfd.fd == -channel->fd()-1);
     pfd.events = static_cast<short>(channel->events());
     pfd.revents = 0;
-    if (channel->isNothingHappened()) {
+    if (channel->isNothingFocus()) {
       // ignore this pollfd
       pfd.fd = -channel->fd()-1;
     }

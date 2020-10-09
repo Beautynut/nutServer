@@ -13,7 +13,7 @@
 namespace nut
 {
 class Channel;
-class Poller;
+class Epoller;
 class EventLoop
 {
     public:
@@ -48,7 +48,7 @@ class EventLoop
         bool runingPendingFunctors_;
         const pid_t threadId_;
         ChannelList activeChannels_;
-        boost::scoped_ptr<Poller>poller_;
+        boost::scoped_ptr<Epoller>epoller_;
         boost::scoped_ptr<TimerQueue> timerQueue_;
         int wakeupFd_;
         boost::scoped_ptr<Channel> wakeupChannel_;
