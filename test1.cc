@@ -30,8 +30,13 @@ void onMessage(const TcpConnSharedPtr& conn,
          buf->readableBytes(),
          conn->name().c_str()
          );
-  const std::string str = "hello\n";
+  std::string str = "HTTP/1.0 400 BAD REQUEST\r\n";
+  str += "Content-type: text/html\r\n";
+  str += "\r\n";
+  str += "<P>Your browser sent a bad request, ";
+  str += "such as a POST without a Content-Length.\r\n";
   conn->send(str);
+  conn->shutdown();
   //printf("onMessage(): [%s]\n", buf->retrieveAsString().c_str());
 }
 
