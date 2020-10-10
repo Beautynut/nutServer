@@ -76,8 +76,8 @@ void Epoller::updateChannel(Channel* channel)
     {
         if(channel->isNothingFocus())
         {
-            channel->set_index(2);
             update(EPOLL_CTL_DEL,channel);
+            channel->set_index(2);
         }
         else
         {
@@ -93,6 +93,8 @@ void Epoller::removeChannel(Channel* channel)
     assert(ChannelMap_[fd] == channel);
     assert(channel->isNothingFocus());
     channel->disableAll();
+    size_t n = ChannelMap_.erase(fd);
+    assert(n == 1);
 
     if(channel->index() == 1)
     {

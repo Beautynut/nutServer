@@ -178,6 +178,24 @@ void TcpConnection::shutdownInLoop()
     }
 }
 
+void TcpConnection::closeConnection()
+{
+    if(state_ == Connected || state_ == Disconnetcing)
+    {
+        setState(Disconnetcing);
+        loop_->queueInLoop(boost::bind(&TcpConnection::closeConnectionInLoop,this));
+    }
+}
+
+void TcpConnection::closeConnectionInLoop()
+{
+    loop_->assertInLoopThread();
+    if (state_ == Connected || state_ == Disconnetcing)
+    {
+      handleClose();
+    }
+}
+
 
 
 
@@ -185,6 +203,7 @@ TcpServer::TcpServer(EventLoop* loop, const inetAddr& listenAddr)
   : loop_((loop)),
     name_(listenAddr.getAddrString()),
     acceptor_(new Acceptor(loop, listenAddr)),
+    threadPool_(new EventLoopThreadPool(loop)),
     started_(false),
     nextConnId_(1)
 {
@@ -218,6 +237,7 @@ void TcpServer::setThreadNums(int nums)
 void TcpServer::newConnection(int sockfd, const inetAddr& peerAddr)
 {
   loop_->assertInLoopThread();
+  EventLoop* ioLoop = threadPool_->getNextLoop();
   char buf[32];
   snprintf(buf, sizeof buf, "#%d", nextConnId_);
   ++nextConnId_;
@@ -234,16 +254,22 @@ void TcpServer::newConnection(int sockfd, const inetAddr& peerAddr)
   conn->setMessageCallback(messageCallback_);
   conn->setCloseCallback(
       boost::bind(&TcpServer::removeConnection, this, _1));
-  conn->connectEstablished();
+  ioLoop->runInLoop(std::bind(&TcpConnection::connectEstablished, conn));
 }
 
 void TcpServer::removeConnection(const TcpConnSharedPtr& conn)
+{
+  loop_->runInLoop(boost::bind(&TcpServer::removeConnectionInLoop,this,conn));
+}
+
+void TcpServer::removeConnectionInLoop(const TcpConnSharedPtr& conn)
 {
   loop_->assertInLoopThread();
   LOG << "TcpServer::removeConnection [" << name_
            << "] - connection " << conn->name();
   size_t n = connections_.erase(conn->name());
   assert(n == 1); (void)n;
-  loop_->queueInLoop(
+  EventLoop* connLoop = conn->getLoop();
+  connLoop->queueInLoop(
       boost::bind(&TcpConnection::connectDestroyed, conn));
 }

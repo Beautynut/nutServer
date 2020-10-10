@@ -46,6 +46,7 @@ class TcpConnection :   boost::noncopyable,
         bool connected() const { return state_ == Connected; }
         void send(const std::string& messages);
         void shutdown();
+        void closeConnection();
 
         void setConnectionCallback(const TcpConnCallback& cb)
         { tcpConnCallback_ = cb; }
@@ -69,6 +70,7 @@ class TcpConnection :   boost::noncopyable,
         void handleError();
         void sendInLoop(const std::string& message);
         void shutdownInLoop();
+        void closeConnectionInLoop();
 
         State state_;
         EventLoop* loop_;
@@ -112,6 +114,7 @@ class TcpServer : boost::noncopyable
     private:
         void newConnection(int sockfd, const inetAddr& peerAddr);
         void removeConnection(const TcpConnSharedPtr& conn);
+        void removeConnectionInLoop(const TcpConnSharedPtr& conn);
 
         typedef std::map<std::string, TcpConnSharedPtr> ConnectionMap;
 

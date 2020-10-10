@@ -35,7 +35,11 @@ void onMessage(const TcpConnSharedPtr& conn,
   str += "\r\n";
   str += "<P>Your browser sent a bad request, ";
   str += "such as a POST without a Content-Length.\r\n";
-  conn->send(str);
+  while (1)
+  {
+    conn->send(str);
+  }
+  
   conn->shutdown();
   //printf("onMessage(): [%s]\n", buf->retrieveAsString().c_str());
 }
