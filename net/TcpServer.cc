@@ -108,6 +108,7 @@ void TcpConnection::handleError()
 
 void TcpConnection::send(const std::string& messages)
 {
+    LOG << "TcpConnection send message: "<< messages;
     if(state_ == Connected)
     {
         if(loop_->isInLoopThread())
@@ -137,6 +138,7 @@ void TcpConnection::sendInLoop(const std::string& messages)
           LOG<<"TcpConnection::sendInLoop";
         }
       }
+    }
 
       if(static_cast<size_t>(nWrote) < messages.size())
       {
@@ -150,7 +152,6 @@ void TcpConnection::sendInLoop(const std::string& messages)
           }
         }
       }
-    }
 }
 
 void TcpConnection::shutdown()
@@ -217,59 +218,59 @@ TcpServer::~TcpServer()
 
 void TcpServer::start()
 {
-  if (!started_)
-  {
-    started_ = true;
-  }
+    if (!started_)
+    {
+        started_ = true;
+    }
 
-  if (!acceptor_->listenning())
-  {
-    loop_->runInLoop(
-        boost::bind(&Acceptor::listen, get_pointer(acceptor_)));
-  }
+    if (!acceptor_->listenning())
+    {
+        loop_->runInLoop(
+            boost::bind(&Acceptor::listen, get_pointer(acceptor_)));
+    }
 }
 
 void TcpServer::setThreadNums(int nums)
 {
-  threadPool_->setThreadNum(nums);
+    threadPool_->setThreadNum(nums);
 }
 
 void TcpServer::newConnection(int sockfd, const inetAddr& peerAddr)
 {
-  loop_->assertInLoopThread();
-  EventLoop* ioLoop = threadPool_->getNextLoop();
-  char buf[32];
-  snprintf(buf, sizeof buf, "#%d", nextConnId_);
-  ++nextConnId_;
-  std::string connName = name_ + buf;
+    loop_->assertInLoopThread();
+    EventLoop* ioLoop = threadPool_->getNextLoop();
+    char buf[32];
+    snprintf(buf, sizeof buf, "#%d", nextConnId_);
+    ++nextConnId_;
+    std::string connName = name_ + buf;
 
-  LOG << "TcpServer::newConnection [" << name_
-           << "] - new connection [" << connName
-           << "] from " << peerAddr.getAddrString();
-  inetAddr localAddr(getLocalAddr(sockfd));
-  TcpConnSharedPtr conn(
-      new TcpConnection(loop_, connName, sockfd, localAddr, peerAddr));
-  connections_[connName] = conn;
-  conn->setConnectionCallback(connectionCallback_);
-  conn->setMessageCallback(messageCallback_);
-  conn->setCloseCallback(
-      boost::bind(&TcpServer::removeConnection, this, _1));
-  ioLoop->runInLoop(std::bind(&TcpConnection::connectEstablished, conn));
+    LOG << "TcpServer::newConnection [" << name_
+            << "] - new connection [" << connName
+            << "] from " << peerAddr.getAddrString();
+    inetAddr localAddr(getLocalAddr(sockfd));
+    TcpConnSharedPtr conn(
+        new TcpConnection(loop_, connName, sockfd, localAddr, peerAddr));
+    connections_[connName] = conn;
+    conn->setConnectionCallback(connectionCallback_);
+    conn->setMessageCallback(messageCallback_);
+    conn->setCloseCallback(
+        boost::bind(&TcpServer::removeConnection, this, _1));
+    ioLoop->runInLoop(std::bind(&TcpConnection::connectEstablished, conn));
 }
 
 void TcpServer::removeConnection(const TcpConnSharedPtr& conn)
 {
-  loop_->runInLoop(boost::bind(&TcpServer::removeConnectionInLoop,this,conn));
+    loop_->runInLoop(boost::bind(&TcpServer::removeConnectionInLoop,this,conn));
 }
 
 void TcpServer::removeConnectionInLoop(const TcpConnSharedPtr& conn)
 {
-  loop_->assertInLoopThread();
-  LOG << "TcpServer::removeConnection [" << name_
-           << "] - connection " << conn->name();
-  size_t n = connections_.erase(conn->name());
-  assert(n == 1); (void)n;
-  EventLoop* connLoop = conn->getLoop();
-  connLoop->queueInLoop(
-      boost::bind(&TcpConnection::connectDestroyed, conn));
+    loop_->assertInLoopThread();
+    LOG << "TcpServer::removeConnection [" << name_
+            << "] - connection " << conn->name();
+    size_t n = connections_.erase(conn->name());
+    assert(n == 1); (void)n;
+    EventLoop* connLoop = conn->getLoop();
+    connLoop->queueInLoop(
+        boost::bind(&TcpConnection::connectDestroyed, conn));
 }

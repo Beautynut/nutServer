@@ -43,10 +43,5 @@ void AppendFile::flush()
 
 size_t AppendFile::write(const char* message,size_t len)
 {   
-    FILE* fp2 = fopen("/home/lhy/nutServer/log.log","ae");
-    int err = ferror(fp2);
-    if (err) fprintf(stderr, "AppendFile::write() failed !\n");
-    fwrite("message",1,7,fp2);
-    fclose(fp2);
     return ::fwrite_unlocked(message,1,len,fp_);
 }

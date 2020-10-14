@@ -46,6 +46,22 @@ class Buffer
   const char* peek() const
   { return begin() + readerIndex_; }
 
+  const char* findCRLF() const
+  {
+    // FIXME: replace with memmem()?
+    const char* crlf = std::search(peek(), beginWrite(), kCRLF, kCRLF+2);
+    return crlf == beginWrite() ? NULL : crlf;
+  }
+
+  const char* findCRLF(const char* start) const
+  {
+    assert(peek() <= start);
+    assert(start <= beginWrite());
+    // FIXME: replace with memmem()?
+    const char* crlf = std::search(start, beginWrite(), kCRLF, kCRLF+2);
+    return crlf == beginWrite() ? NULL : crlf;
+  }
+
   // retrieve returns void, to prevent
   // string str(retrieve(readableBytes()), readableBytes());
   // the evaluation of two functions are unspecified
@@ -163,6 +179,7 @@ class Buffer
   std::vector<char> buffer_;
   size_t readerIndex_;
   size_t writerIndex_;
+  static const char kCRLF[];
 };
 }
 

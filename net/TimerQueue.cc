@@ -36,13 +36,13 @@ struct timespec howMuchTimeFromNow(Timestamp when)
 
 void readTimerfd(int timerfd, Timestamp now)
 {
-  uint64_t howmany;
-  ssize_t n = ::read(timerfd, &howmany, sizeof howmany);
-  LOG << "TimerQueue::handleRead() " << howmany << " at " << now.toString();
-  if (n != sizeof howmany)
-  {
-    LOG << "TimerQueue::handleRead() reads " << n << " bytes instead of 8";
-  }
+    uint64_t howmany;
+    ssize_t n = ::read(timerfd, &howmany, sizeof howmany);
+    LOG << "TimerQueue::handleRead() " << howmany << " at " << now.toString();
+    if (n != sizeof howmany)
+    {
+        LOG << "TimerQueue::handleRead() reads " << n << " bytes instead of 8";
+    }
 }
 
 void resetTimerfd(int timerfd, Timestamp expiration)

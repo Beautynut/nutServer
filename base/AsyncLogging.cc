@@ -64,15 +64,16 @@ void AsyncLogging::threadFunc()
     assert(buffersToWrite.empty());
     {
         MutexLockGuard lock(mutex_);
-    // unusual usage!
-    //   if (buffers_.empty())  // unusual usage!
-    //   {
-    //     cond_.waitForSeconds(flushInterval_);
-    //   }
-         while(buffers_.empty())
-         {
-             cond_.wait();
-         }
+        // unusual usage!
+        //   if (buffers_.empty())  // unusual usage!
+        //   {
+        //     cond_.waitForSeconds(flushInterval_);
+        //   }
+        // TODO:修改为定时等待
+        while(buffers_.empty())
+        {
+            cond_.wait();
+        }
         
         buffers_.push_back(std::move(currentBuffer_));
         currentBuffer_ = std::move(newBuffer1);

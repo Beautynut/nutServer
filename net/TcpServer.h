@@ -4,6 +4,7 @@
 #include <string>
 #include <map>
 
+#include <boost/any.hpp>
 #include <boost/function.hpp>
 #include <boost/scoped_ptr.hpp>
 #include <boost/shared_ptr.hpp>
@@ -13,6 +14,7 @@
 #include "Channel.h"
 #include "Socket.h"
 #include "Buffer.h"
+#include "HttpData.h"
 
 namespace nut
 {
@@ -58,8 +60,14 @@ class TcpConnection :   boost::noncopyable,
         { closeCallback_ = cb; }
 
         void connectEstablished();
-        // 删除保存
+
         void connectDestroyed(); 
+
+        HttpRequest* getMutableContext()
+        { return &request_; }
+
+        void setReq(const HttpRequest& req)
+        { request_ = req; }
     private:
         enum State { Connecting, Connected, Disconnetcing, Disconnected};
 
@@ -85,6 +93,8 @@ class TcpConnection :   boost::noncopyable,
         MessageCallback messageCallback_;
         CloseCallback closeCallback_;
 
+        HttpRequest request_;
+
         Buffer inputBuffer_;
         Buffer outputBuffer_;
 };
@@ -102,6 +112,9 @@ class TcpServer : boost::noncopyable
         TcpServer(EventLoop* loop, const inetAddr& listenAddr);
         ~TcpServer();
         void start();
+
+        EventLoop* getLoop()
+        { return loop_; }
 
         void setConnectionCallback(const TcpConnCallback& cb)
         { connectionCallback_ = cb; }
