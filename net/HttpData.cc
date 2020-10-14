@@ -166,6 +166,7 @@ bool HttpRequest::ParseReqBody(const char* start ,const char* end)
 {
     return true;
 }
+// TODO: lots of questions
 bool HttpRequest::parseRequest(Buffer* buf)
 {
     bool finished = false;
@@ -272,7 +273,7 @@ void HttpResponse::setResponse(HttpRequest* req)
     }
     else
     {
-        addHeader("Content-Length",std::to_string(sizeof(body_)));
+        addHeader("Content-Length",std::to_string(body_.size()));
         addHeader("Connection","Keep-Alive");
         closeConn_ = false;
     }

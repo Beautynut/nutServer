@@ -5,8 +5,11 @@
 > 这是一个我个人在学习muduo之后,基于muduo做的多线程服务器  
 HTTP之前的部分(也就是从EventLoop到TcpServer),很大部分代码都是参考muduo的,因为自己写着写着总觉得不好,然后看了Muduo的代码发现每个地方都比自己写的好 (还挺不好意思的-:)) 
 
+> 目前处于大量有关http的bug修改中
+
 ## Version
 > V1.0 TCP Server部分完成
+> V1.1 支持epoll
 
 ## Technical  Points
 
