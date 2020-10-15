@@ -51,7 +51,7 @@ class HttpRequest
         bool parseRequest(Buffer* buf);
         bool parseReqLine(const char* start,const char* end);
         bool parseReqUri(const char* start,const char* end);
-        bool parseReqHeaders(const char* start,const char* end,Buffer* buf);
+        bool parseReqHeaders(const char* start,const char* end);
         bool ParseReqBody(const char* start,const char* end);
 
         bool getFullReq()

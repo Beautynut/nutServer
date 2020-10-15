@@ -46,23 +46,18 @@ void HttpServer::onMessage(const TcpConnSharedPtr& conn,
 {
 
     HttpRequest* req = conn->getMutableContext();
-    //TODO:right code is 
-    // !req->parseRequest(buf)
-    // now is fixing bug
-    if (req->parseRequest(buf))
+
+    if (!req->parseRequest(buf))
     {
         conn->send("HTTP/1.1 400 Bad Request\r\n\r\n");
         conn->shutdown();
     }
 
-    // TODO:fix here
+
     if(req->getFullReq())
     {
-        LOG<<"test: Get full Req";
         onRequest(conn,req);
     }
-    // TODO:remove here
-    onRequest(conn,req);
 }
 
 void HttpServer::onRequest(const TcpConnSharedPtr& conn,HttpRequest* req)

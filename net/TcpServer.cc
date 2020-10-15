@@ -108,7 +108,7 @@ void TcpConnection::handleError()
 
 void TcpConnection::send(const std::string& messages)
 {
-    LOG << "TcpConnection send message: "<< messages;
+    LOG << "TcpConnection send message:\n"<< messages <<'\n';
     if(state_ == Connected)
     {
         if(loop_->isInLoopThread())

@@ -1,5 +1,6 @@
 #include "Buffer.h"
 #include "HttpData.h"
+#include "../base/Logging.h"
 #include <string.h>
 #include <ctype.h>
 
@@ -33,7 +34,6 @@ bool HttpRequest::parseReqLine(const char* start, const char* end)
                     finished = true;
                     break;
                 }
-                begin = space + 1;
                 switch (space - begin)
                 {
                     case 3:
@@ -41,11 +41,13 @@ bool HttpRequest::parseReqLine(const char* start, const char* end)
                         {
                             method_ = MethodGet;
                             lineParseState_ = ExceptUri;
+                            begin = space + 1;
                         }
                         else if(strncmp(begin,"PUT",3) == 0)
                         {
                             method_ = MethodPut;
-                            lineParseState_ = ExceptUri;   
+                            lineParseState_ = ExceptUri;
+                            begin = space + 1;   
                         }
                         break;
                     case 4:
@@ -53,11 +55,13 @@ bool HttpRequest::parseReqLine(const char* start, const char* end)
                         {
                             method_ = MethodHead;
                             lineParseState_ = ExceptUri;
+                            begin = space + 1;
                         }
                         else if(strncmp(begin,"POST",4) == 0)
                         {
                             method_ = MethodPost;
-                            lineParseState_ = ExceptUri;   
+                            lineParseState_ = ExceptUri;
+                            begin = space + 1;   
                         }
                         break;
                     case 5:
@@ -65,6 +69,7 @@ bool HttpRequest::parseReqLine(const char* start, const char* end)
                         {
                             method_ = MethodTrace;
                             lineParseState_ = ExceptUri;
+                            begin = space + 1;
                         }
                         break;
                     case 6:
@@ -72,6 +77,7 @@ bool HttpRequest::parseReqLine(const char* start, const char* end)
                         {
                             method_ = MethodDelete;
                             lineParseState_ = ExceptUri;
+                            begin = space + 1;
                         }
                         break;
                     case 7:
@@ -79,6 +85,7 @@ bool HttpRequest::parseReqLine(const char* start, const char* end)
                         {
                             method_ = MethodOptions;
                             lineParseState_ = ExceptUri;
+                            begin = space + 1;
                         }
                         break;
                     default:
@@ -131,12 +138,12 @@ bool HttpRequest::parseReqLine(const char* start, const char* end)
     return success; 
 }
 
-bool HttpRequest::parseReqHeaders(const char* start,const char* end,Buffer* buf)
+bool HttpRequest::parseReqHeaders(const char* start,const char* end)
 {
     const char* begin = start;
-    const char* crlf = buf->findCRLF();
+    const char* crlf = static_cast<const char*>(memmem(begin,end-begin,"\r\n",2));
     bool result = false;
-    while(crlf != end)
+    while(crlf && crlf != end)
     {
         const char* colon = std::find(begin,crlf,':');
         std::string field(begin, colon);
@@ -153,8 +160,8 @@ bool HttpRequest::parseReqHeaders(const char* start,const char* end,Buffer* buf)
         requestHeaders_[field] = value;
         //TODO: maybe not perfect
         begin = crlf + 2;
-        crlf = buf->findCRLF(begin);
-        if((crlf - begin) <= 2)
+        crlf = static_cast<const char*>(memmem(begin,end-begin,"\r\n",2));
+        if(crlf && (crlf - begin) <= 2)
         {
             result = true;
             break;
@@ -171,7 +178,9 @@ bool HttpRequest::parseRequest(Buffer* buf)
 {
     bool finished = false;
     const char* start = buf->peek();
-    const char* end = start;
+    const char* end = buf->beginWrite();
+    std::string str(start,end);
+    LOG<<"TEST recv request:\n"<<str;
     while (!finished)
     {
         switch (reqParseState_)
@@ -190,7 +199,7 @@ bool HttpRequest::parseRequest(Buffer* buf)
                 break;
             case ExceptRequestHeaders:
                 end = buf->beginWrite();
-                if(parseReqHeaders(start,end,buf))
+                if(parseReqHeaders(start,end))
                 {
                     start = end;
                     reqParseState_ = ExceptRequestBody;
@@ -211,6 +220,7 @@ bool HttpRequest::parseRequest(Buffer* buf)
                 }
                 break;
             case ParseReqFinished:
+                finished = true;
                 break;
         }
     }
