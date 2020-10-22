@@ -67,7 +67,8 @@ void HttpServer::onRequest(const TcpConnSharedPtr& conn,HttpRequest* req)
     Buffer buf;
     response.appendToBuffer(&buf);
     conn->send(buf.retrieveAsString());
-    if(response.closeConnection())
+    //right :response.closeConnection()
+    if(!response.closeConnection())
     {
         conn->shutdown();
     }
