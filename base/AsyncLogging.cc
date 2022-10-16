@@ -25,12 +25,14 @@ AsyncLogging::AsyncLogging(const std::string& filename)
 void AsyncLogging::append(const char* message,int len)
 {
     MutexLockGuard lock(mutex_);
+    // 如果当前缓冲区有足够空间,加入到当前缓冲区
     if (currentBuffer_->avail() > len)
     {
         currentBuffer_->append(message, len);
     }
-    else
+    else 
     {
+        // 如果当前缓冲区没有足够空间 将当前缓冲区加入到buffer队列,然后使用新的缓冲区
         buffers_.push_back(std::move(currentBuffer_));
 
         if (nextBuffer_)
@@ -87,6 +89,8 @@ void AsyncLogging::threadFunc()
     assert(!buffersToWrite.empty());
 
     // 注释掉的这段代码的作用是日志消息太多丢弃一部分
+    // 在消息一次过多,生产速度高于消费速度的情况下可能出现
+    // 主要是为了防止消息堆积,引发内存问题, 可以考虑加入报警功能
 
     // if (buffersToWrite.size() > 25)
     // {

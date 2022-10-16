@@ -29,8 +29,7 @@
 ## TODO
 
 > 1.支持定时器关闭超时连接
-> 2.支持POST GET
-> 3.支持日志级别设置  
+> 2.支持日志级别设置  
 
 ## Languages
 | language | files | code | comment | blank | total |
